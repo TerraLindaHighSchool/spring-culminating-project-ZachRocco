@@ -4,8 +4,8 @@ import greenfoot.*;
  * A creature in a simulation. The creature has a known home. It can move and head towards or away from home.
  * 
  * Movement of the creature is arranged by storing a deltaX/deltaY pair: the offsets in the x/y direction
- * that the creature will move in the next step. The value for these is capped by the SPEED constant: 
- * the delta values will always be in the range [-SPEED..SPEED].
+ * that the creature will move in the next step. The value for these is capped by the Speed constant: 
+ * the delta values will always be in the range [-Speed..Speed].
  * 
  * @author mik
  * @version 1.0
@@ -13,7 +13,7 @@ import greenfoot.*;
 public class Creature  extends Actor
 {
     /** The maximum movement speed of the ant. */
-    private static final int SPEED = 3;
+    public int Speed = 3;
 
     /** Current movement. Defined as the offset in x and y direction moved in each step. */
     private int deltaX;
@@ -123,7 +123,7 @@ public class Creature  extends Actor
      * always head in the same direction. The heading is slightly random (but likely to be somewhat
      * towards the target) to make it look more natural.
      */
-    private void headRoughlyTowards(Actor target)
+    public void headRoughlyTowards(Actor target)
     {
         int distanceX = Math.abs(getX() - target.getX());
         int distanceY = Math.abs(getY() - target.getY());
@@ -142,9 +142,9 @@ public class Creature  extends Actor
     {
         if (move) {
             if (current > home)
-                return -SPEED;
+                return -Speed;
             else
-                return SPEED;
+                return Speed;
         }
         else {
             return 0;
@@ -153,23 +153,23 @@ public class Creature  extends Actor
 
     /**
      * Adjust the speed randomly (start moving, continue or slow down). The
-     * speed returned is in the range [-SPEED .. SPEED].
+     * speed returned is in the range [-Speed .. Speed].
      */
     private int adjustSpeed(int speed)
     {
-        speed = speed + Greenfoot.getRandomNumber(2 * SPEED - 1) - SPEED + 1;
+        speed = speed + Greenfoot.getRandomNumber(2 * Speed - 1) - Speed + 1;
         return capSpeed(speed);
     }
 
     /**
-     * Make sure the speed returned is in the range [-SPEED .. SPEED].
+     * Make sure the speed returned is in the range [-Speed .. Speed].
      */
     private int capSpeed(int speed)
     {
-        if (speed < -SPEED)
-            return -SPEED;
-        else if (speed > SPEED)
-            return SPEED;
+        if (speed < -Speed)
+            return -Speed;
+        else if (speed > Speed)
+            return Speed;
         else
             return speed;
     }
