@@ -48,4 +48,14 @@ public class Counter extends Actor
         image.clear();
         image.drawString(text + value, 1, 12);
     }
+    
+    public int getValue()
+    {
+        return value;
+    }
+    
+    public void decrement(int amount)
+    {
+        value -= amount;
+    }
 }

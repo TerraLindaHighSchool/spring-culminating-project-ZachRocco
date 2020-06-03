@@ -18,6 +18,7 @@ public class AntHill extends Actor
     
     /** Counter to show how much food have been collected so far. */
     private Counter foodCounter;
+    private Counter antCounter;
     
     /**
      * Constructor for ant hill with default number of ants (40).
@@ -45,6 +46,7 @@ public class AntHill extends Actor
             {
                 getWorld().addObject(new Ant(this), getX(), getY());
                 ants++;
+                countAnts();
             }
         }
         if(antWarriors < maxAntWarriors) 
@@ -53,8 +55,10 @@ public class AntHill extends Actor
             {
                 getWorld().addObject(new AntWarrior(this), getX(), getY());
                 antWarriors++;
+                countAnts();
             }
         }
+        createNewAnts();
     }
 
     /**
@@ -72,5 +76,41 @@ public class AntHill extends Actor
             getWorld().addObject(foodCounter, x, y);
         }        
         foodCounter.increment();
+    }
+    
+    private void createNewAnts()
+    {
+        if (foodCounter != null)
+        {
+            if (foodCounter.getValue() >= 4)
+            {
+                if(Greenfoot.getRandomNumber(100) < 75) 
+                {
+                    getWorld().addObject(new Ant(this), getX(), getY());
+                    ants++;
+                    countAnts();
+                }
+                else
+                {
+                    getWorld().addObject(new AntWarrior(this), getX(), getY());
+                    antWarriors++;
+                    countAnts();
+                }
+                foodCounter.decrement(5);
+            }
+        }
+    }
+    
+    private void countAnts()
+    {
+        if(antCounter == null)
+        {
+            antCounter = new Counter("Ants: ");
+            int x = getX();
+            int y = getY() + getImage().getWidth()/2 + 8;
+    
+            getWorld().addObject(antCounter, x, y + 10);
+        }
+        antCounter.increment();
     }
 }

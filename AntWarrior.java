@@ -32,6 +32,14 @@ public class AntWarrior extends Creature
     public void act()
     {
         status();
+        if (getWorld() != null && getWorld().getObjects(Food.class).size() == 0 && getWorld().getObjects(Pheromone.class).size() == 0)
+        {
+            walkTowardsHome();
+            if(atHome())
+            {
+                getWorld().removeObject(this);
+            }
+        }
     }
     
     private void checkForFood()

@@ -37,6 +37,11 @@ public class AntWorld extends World
             Food food = new Food();
             addObject(food,Greenfoot.getRandomNumber(SIZE),Greenfoot.getRandomNumber(SIZE));
         }
+        for(int i = 1; i <= 1; i++)
+        {
+            BeetleHome beetleHome = new BeetleHome();
+            addObject(beetleHome,Greenfoot.getRandomNumber(SIZE),Greenfoot.getRandomNumber(SIZE));
+        }
     }
     
     public void act()

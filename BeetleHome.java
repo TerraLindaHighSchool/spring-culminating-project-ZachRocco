@@ -12,7 +12,7 @@ public class BeetleHome extends AntHill
     private int beetles = 0;
     
     /** Total number of beetles in this hill. */
-    private int maxBeetles = 1;
+    private int maxBeetles = 2;
     
     /** Counter to show how much food have been collected so far. */
     private Counter foodCounter;
