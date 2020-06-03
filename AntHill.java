@@ -10,9 +10,11 @@ public class AntHill extends Actor
 {
     /** Number of ants that have come out so far. */
     private int ants = 0;
+    private int antWarriors = 0;
     
     /** Total number of ants in this hill. */
     private int maxAnts = 40;
+    private int maxAntWarriors = 10;
     
     /** Counter to show how much food have been collected so far. */
     private Counter foodCounter;
@@ -43,6 +45,14 @@ public class AntHill extends Actor
             {
                 getWorld().addObject(new Ant(this), getX(), getY());
                 ants++;
+            }
+        }
+        if(antWarriors < maxAntWarriors) 
+        {
+            if(Greenfoot.getRandomNumber(100) < 10) 
+            {
+                getWorld().addObject(new AntWarrior(this), getX(), getY());
+                antWarriors++;
             }
         }
     }

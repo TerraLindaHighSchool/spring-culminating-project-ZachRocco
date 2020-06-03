@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class PredatorBeetle extends Creature
 {
     private int antsEaten;
-    private int health;
+    private int health = 5;
     private int cooldown;
     
     public PredatorBeetle(BeetleHome home)
@@ -47,6 +47,12 @@ public class PredatorBeetle extends Creature
         {
             searchForFood();
         }
+        if (health <= 0)
+        {
+            FoodBeetle foodBeetle = new FoodBeetle();
+            getWorld().addObject(foodBeetle, getX(), getY());
+            getWorld().removeObject(this);
+        }
     }
     
     private boolean isFull()
@@ -65,7 +71,7 @@ public class PredatorBeetle extends Creature
         if (antInRange())
         {
             Ant ant = getObjectsInRange(100, Ant.class).get(0);
-            headRoughlyTowards(ant);
+            headTowards(ant);
         }
         if (getIntersectingObjects(Ant.class).size() != 0)
         {
@@ -95,6 +101,12 @@ public class PredatorBeetle extends Creature
         else {
             return false;
         }
+    }
+    
+    public void decrementHealth()
+    {
+        antsEaten++;
+        health--;
     }
 }
 
