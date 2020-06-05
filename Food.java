@@ -13,11 +13,22 @@ public class Food extends Actor
     private int crumbs;
     private int size;
     Random random = new Random();
+    private Color color;
     
     public Food()
     {
         crumbs = 100;
         size = 30;
+        color = new Color(170, 110, 70);
+        image = new GreenfootImage(size, size);
+        updateImage();
+    }
+    
+    public Food(int crumbsValue, int sizeValue, int colorValue1, int colorValue2,int colorValue3)
+    {
+        crumbs = crumbsValue;
+        size = sizeValue;
+        color = new Color(colorValue1, colorValue2, colorValue3);
         image = new GreenfootImage(size, size);
         updateImage();
     }
@@ -48,7 +59,6 @@ public class Food extends Actor
             if(y >= size) 
                 y = size - 1;
             
-            Color color = new Color(170, 110, 70);  // pick the color you want by replacing r, g, b with values.
             image.setColorAt(x, y, color);
         }
         setImage(image);
@@ -59,7 +69,7 @@ public class Food extends Actor
         crumbs--;
         image.clear();
         updateImage();
-        if(crumbs == 0)
+        if(crumbs <= 0)
         {
             getWorld().removeObject(this);
         }

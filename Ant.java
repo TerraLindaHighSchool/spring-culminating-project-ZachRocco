@@ -144,4 +144,15 @@ public class Ant extends Creature
             }
         }
     }
+    
+    public void destroyAnt()
+    {
+        if(carryingFood)
+        {
+            Food food = new Food(1, 10, 170, 110, 170);
+            getWorld().addObject(food, getX(), getY());
+        }
+        getHomeHill().removeAnt();
+        getWorld().removeObject(this);
+    }
 }

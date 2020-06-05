@@ -76,7 +76,7 @@ public class PredatorBeetle extends Creature
         if (getIntersectingObjects(Ant.class).size() != 0)
         {
             Ant ant = getIntersectingObjects(Ant.class).get(0);
-            getWorld().removeObject(ant);
+            ant.destroyAnt();
             antsEaten++;
         }
     }

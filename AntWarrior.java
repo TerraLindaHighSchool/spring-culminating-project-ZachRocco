@@ -15,6 +15,9 @@ public class AntWarrior extends Creature
     private static final int TIME_FOLLOWING_TRAIL = 30;
     private int phAvailable = MAX_PH_AVAILBLE;
     private int followTrailTimeRemaining = 0;
+    private Ant nearbyAnt;
+    private AntWarrior nearbyAntWarrior;
+    private int antsKilled;
     
     /**
      * Create an ant with a given home hill. The initial speed is zero (not moving).
@@ -22,8 +25,6 @@ public class AntWarrior extends Creature
     public AntWarrior(AntHill home)
     {
         setHomeHill(home);
-        image1 = getImage();
-        image2 = new GreenfootImage("ant-with-food.gif");
     }
 
     /**
@@ -77,7 +78,28 @@ public class AntWarrior extends Creature
                 if (getIntersectingObjects(PredatorBeetle.class).size() != 0)
                 {
                     predatorBeetle.decrementHealth();
-                    getWorld().removeObject(this);
+                    destroyAnt();
+                }
+            }
+            else if (enemyAntNearby())
+            {
+                if (nearbyAntWarrior != null)
+                {
+                    headTowards(nearbyAntWarrior);
+                    if(this.getX() == nearbyAntWarrior.getX() && this.getY() == nearbyAntWarrior.getY())
+                    {
+                        nearbyAntWarrior.destroyAnt();
+                        antsKilled++;
+                    }
+                }
+                else if (nearbyAnt != null)
+                {
+                    headTowards(nearbyAnt);
+                    if(this.getX() == nearbyAnt.getX() && this.getY() == nearbyAnt.getY())
+                    {
+                        nearbyAnt.destroyAnt();
+                        antsKilled++;
+                    }
                 }
             }
             else if (smellsPheromone())
@@ -108,9 +130,42 @@ public class AntWarrior extends Creature
         }
     }
     
+    private boolean enemyAntNearby()
+    {
+        //java.util.List ants = getObjectsInRange(50, PredatorBeetle.class);
+        boolean isEnemyNearby = false;
+        for(Ant ant : getObjectsInRange(50, Ant.class))
+        {
+            if (ant.getHomeHill() != this.getHomeHill())
+            {
+                isEnemyNearby = true;
+                nearbyAnt = ant;
+                nearbyAntWarrior = null;
+            }
+        }
+        for(AntWarrior antWarrior : getObjectsInRange(50, AntWarrior.class))
+        {
+            if (antWarrior.getHomeHill() != this.getHomeHill())
+            {
+                isEnemyNearby = true;
+                nearbyAntWarrior = antWarrior;
+                nearbyAnt = null;
+            }
+        }
+        if (isEnemyNearby)
+        {
+            return true;
+        }
+        else return false;
+    }
+    
     private void status()
     {
         searchForPredators();
+        if (antsKilled >= 5)
+        {
+            destroyAnt();
+        }
     }
     
     private void handlePheromoneDrop()
@@ -150,5 +205,11 @@ public class AntWarrior extends Creature
                 followTrailTimeRemaining = TIME_FOLLOWING_TRAIL;
             }
         }
+    }
+    
+    public void destroyAnt()
+    {
+        getHomeHill().removeAntWarrior();
+        getWorld().removeObject(this);
     }
 }

@@ -16,21 +16,6 @@ public class BeetleHome extends AntHill
     
     /** Counter to show how much food have been collected so far. */
     private Counter foodCounter;
-    
-    /**
-     * Constructor for beetle home with default number of beetles (1).
-     */
-    public BeetleHome()
-    {
-    }
-
-    /**
-     * Construct an beetle hill with a given number of beetles.
-     */
-    public BeetleHome(int numberOfBeetles)
-    {
-        maxBeetles = numberOfBeetles;
-    }
 
     /**
      * Act: If there are still beetles left inside, see whether one should come out.

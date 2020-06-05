@@ -17,22 +17,25 @@ public class AntHill extends Actor
     private int maxAntWarriors = 10;
     
     /** Counter to show how much food have been collected so far. */
-    private Counter foodCounter;
-    private Counter antCounter;
+    public Counter foodCounter;
+    public Counter antCounter;
+    
+    private String antHillName;
     
     /**
      * Constructor for ant hill with default number of ants (40).
      */
     public AntHill()
     {
+        antHillName = "no name given";
     }
-
+    
     /**
-     * Construct an ant hill with a given number of ants.
+     * Constructor for ant hill with default number of ants (40).
      */
-    public AntHill(int numberOfAnts)
+    public AntHill(String name)
     {
-        maxAnts = numberOfAnts;
+        antHillName = name;
     }
 
     /**
@@ -49,6 +52,7 @@ public class AntHill extends Actor
                 countAnts();
             }
         }
+        else maxAnts = 0;
         if(antWarriors < maxAntWarriors) 
         {
             if(Greenfoot.getRandomNumber(100) < 10) 
@@ -58,6 +62,7 @@ public class AntHill extends Actor
                 countAnts();
             }
         }
+        else maxAntWarriors = 0;
         createNewAnts();
     }
 
@@ -111,6 +116,28 @@ public class AntHill extends Actor
     
             getWorld().addObject(antCounter, x, y + 10);
         }
-        antCounter.increment();
+        antCounter.setValue(ants);
+    }
+    
+    public int getAnts()
+    {
+        return ants;
+    }
+    
+    public String getName()
+    {
+        return antHillName;
+    }
+    
+    public void removeAnt()
+    {
+        ants--;
+        countAnts();
+    }
+    
+    public void removeAntWarrior()
+    {
+        antWarriors--;
+        countAnts();
     }
 }
