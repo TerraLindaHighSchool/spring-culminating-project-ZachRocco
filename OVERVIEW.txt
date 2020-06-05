@@ -6,7 +6,7 @@ all he/she needs to know. The comments should usually include at least:
 
 PROJECT TITLE:Ants
 PURPOSE OF PROJECT:Get more food than other ants
-VERSION or DATE:1.0
+VERSION or DATE:1.5
 HOW TO START THIS PROJECT:Click the run button
 AUTHORS:Zachary Rocco, Michael Kölling
-USER INSTRUCTIONS:
+USER INSTRUCTIONS:hit run, reset for a new layout
